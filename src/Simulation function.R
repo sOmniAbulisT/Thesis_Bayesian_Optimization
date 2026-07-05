@@ -19,7 +19,7 @@
 #'         A higher value indicates better ranking performance.
 #' @export
 
-NDCG <- function(GEBV, TBV, k, gain = c("linear", "ranking")){
+NDCG <- function(GEBV, TBV, k){
   
   #--- Basic check ---#
   gain <- match.arg(gain)
@@ -33,15 +33,9 @@ NDCG <- function(GEBV, TBV, k, gain = c("linear", "ranking")){
   index_pred <- order(GEBV, decreasing = TRUE)[seq_len(k)]
   index_true <- order(TBV, decreasing = TRUE)[seq_len(k)]
   
-  if(gain == "linear"){
-    DCG <- sum(TBV[index_pred] * d)
-    IDCG <- sum(TBV[index_true] * d)
-  }else if(gain == "ranking"){
-    DCG <- sum(rank(-TBV)[index_pred]*d)
-    IDCG <- sum(rank(-TBV)[index_true] * d)
-  }else{
-    stop("Invalid value: please input 'linear' or 'ranking'. ")
-  }
+  DCG <- sum(TBV[index_pred] * d)
+  IDCG <- sum(TBV[index_true] * d)
+
   ndcg <- if(IDCG == 0) 0 else DCG / IDCG
   
   #--- Return ---#
@@ -379,7 +373,7 @@ Evaluation <- function(kinshipA, kinshipD = NULL, OptTRS, TRSSize, p_true, mu_tr
   return(result)
 }
 
-#' Simulate different heritability and training set size scenerio
+#' Simulate different heritability and training set size scenarios
 #' 
 #' @description
 #' This function performs a comprehensive simulation study to validate the performance
