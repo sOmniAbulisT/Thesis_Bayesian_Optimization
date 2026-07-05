@@ -1,0 +1,17 @@
+
+*.csv
+*.xlsx
+*.RData
+*.vcf
+data/
+
+
+*.pdf
+*.docx
+*.doc
+
+
+.DS_Store
+.vscode/
+.Rproj.user/
+__pycache__/
