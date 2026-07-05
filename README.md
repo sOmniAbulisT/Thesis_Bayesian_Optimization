@@ -64,3 +64,77 @@ source("src/DesignOptimalTrainingFunction.R")
 source("src/SimulationFunction.R")
 ```
 
+## Input Data Structure
+### Additive kinship matrix
+```r
+kinshipA
+```
+A square symmetric matrix representing additive genetic relationships among individuals.
+
+### Dominance kinship matrix (Optional)
+```r
+kinshipD
+```
+A square symmetric matrix representing dominance genetic relationships among individuals.
+
+### Requirements:
+
+* Must be square matrices
+* Must have identical dimensions
+* Must share the same row/column ordering
+* Row/column names correspond to individuals
+
+### Example:
+```r
+dim(kinshipA)
+# 500 x 500
+```
+
+## Main Workflow
+1. Simulate phenotypic values using kinship matrices
+2. Split individuals via cross-validation
+3. Fit RKHS models using `BGLR`
+4. Compute acquisition scores (EI, UCB) and GV
+5. Rank candidate individuals
+
+## Example Usage
+### Additive Kernel Only
+```r
+result <- OPTtrain(
+  kinshipA = KA,
+  nsim = 100,
+  folds = 5,
+  h = 0.5,
+  mu = 100,
+  varA = 20
+)
+```
+
+### Additive and Dominance Kernel Only
+```r
+result <- OPTtrain(
+  kinshipA = KA,
+  kinshipD = KD,
+  nsim = 100,
+  folds = 5,
+  h = 0.5,
+  mu = 100,
+  varA = 20,
+  rho = 0.5
+)
+```
+
+### Output
+The function returns a list containing:
+
+| Object | Description |
+|--------|-------------|
+| EI     | Augmented Expected Improvement ranking |
+| UCB    | Augmented Upper Confidence Bound ranking |
+| GV     | Genetic variance-based baseline ranking |
+
+Example:
+```r
+head(result$EI)
+```
+
