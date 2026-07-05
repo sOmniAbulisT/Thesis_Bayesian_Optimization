@@ -22,3 +22,17 @@ Please ensure the following key packages are installed:
 * `dplyr`, `purrr`, `tibble` (Data manipulation)
 * `progressr`, `cli` (CLI progress visualization)
 * `MASS`
+
+## Repository Structure
+The repository is modularized, separating core functions from execution scripts:
+
+```text
+├── src/                                  # Core algorithms and custom functions
+│   ├── AcquisitionFunction.R             # Defines acquisition functions (e.g., EI, UCB) for Bayesian Optimization
+│   ├── DesignOptimalTrainingFunction.R   # Core logic for constructing the optimized training set
+│   ├── GvFunction.R                      # Defines A-optimality-like criteria
+│   ├── SimulationFunction.R              # Main function for parallel simulation and metric calculation
+│   └── TwoStage.R                        # Implements the two-stage prediction and evaluation model (discussion)
+│
+└── README.md
+```
