@@ -36,3 +36,31 @@ The repository is modularized, separating core functions from execution scripts:
 │
 └── README.md
 ```
+
+## Installation
+
+Install required R packages:
+
+```r
+install.packages(c(
+  "BGLR",
+  "future",
+  "future.apply",
+  "progressr",
+  "cli",
+  "MASS",
+  "dplyr",
+  "purrr",
+  "tibble"
+))
+```
+
+Load core scripts: 
+
+```r
+source("src/AcquisitionFunction.R")
+source("src/GvFunction.R")
+source("src/DesignOptimalTrainingFunction.R")
+source("src/SimulationFunction.R")
+```
+
