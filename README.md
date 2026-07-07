@@ -11,8 +11,14 @@ To protect unpublished academic data and original genomic datasets, this reposit
 The core simulation pipeline adopts a data-driven approach. It estimates variance components from empirical phenotypic data and evaluates the performance of various Bayesian Optimization acquisition functions (e.g., EI, UCB) across different training set sizes.
 
 ## Authors
-* **Kun-Hong Liao** M.S., Biometry Division, Department of Agronomy, National Taiwan University
-* **Advisor**: Dr. Chen-Tuo Liao
+* Kun-Hong Liao 
+  * Author, maintainer
+  * E-mail: [r13621207@ntu.edu.tw](mailto:r13621207@ntu.edu.tw)
+* Advisor: Dr. Chen-Tuo Liao
+  * Author, thesis advisor
+  * E-mail: [ctliao@ntu.edu.tw](mailto:ctliao@ntu.edu.tw)
+  * Department of Agronomy, National Taiwan University, Taipei, Taiwan
+
 
 ## Tech Stack & Dependencies
 This project is built primarily with R for statistical computing and predictive modeling, leveraging the `future` framework for parallel processing. 
