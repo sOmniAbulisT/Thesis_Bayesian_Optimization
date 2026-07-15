@@ -12,7 +12,7 @@
 #' @param kinshipD Matrix (Option). Dominance matrix.
 #' @param p_true   Vector. Phenotypic value.
 #' @param gamma    Numeric. penalty for EI calculate (default = 1).
-#' @param z.score  Numeric. Z-score for upper bound calculate (default = 1.96).
+#' @param kappa  Numeric. Kappa for upper bound calculate (default = 1.96).
 #' 
 #' @details
 #' The function performs the following steps for each fold:
@@ -20,7 +20,7 @@
 #' 2. Fits a GBLUP model using the \code{BGLR} package to estimate genetic effects.
 #' 3. Calculates the conditional posterior mean vector and variance-covariance matrix for the remaining sets.
 #' 4. Compute the current maximum genetic value ($f_{Mg}$) in the training set.
-#' 5. Derives EI and UCB scores based on the specified \code{gamma} and \code{z.score}.
+#' 5. Derives EI and UCB scores based on the specified \code{gamma} and \code{kappa}.
 #' 
 #' @return A data frame with \code{Nc} rows and 2 columns:
 #' \item{meanEI}{The average Expectated Improvment (EI) score across folds.}
@@ -31,7 +31,7 @@
 #' 
 #' @export
 
-AcqFun <- function(folds, candi, Nc, kinshipA, kinshipD = NULL, p_true, gamma = 1, z.score = 1.96){
+AcqFun <- function(folds, candi, Nc, kinshipA, kinshipD = NULL, p_true, gamma = 1, kappa = 1.96){
   
   #---  Check dominance effect ---#
   dominance <- !is.null(kinshipD)
@@ -127,7 +127,7 @@ AcqFun <- function(folds, candi, Nc, kinshipA, kinshipD = NULL, p_true, gamma = 
               (1 - sqrt(varE) / sqrt(var_hat_g2 + varE))
     
     #--- Confidence Upper Bound with Augmented ---#
-    aug_ucb <- (mu_hat_g2 + z.score*sqrt(var_hat_g2))*
+    aug_ucb <- (mu_hat_g2 + kappa*sqrt(var_hat_g2))*
       (1 - sqrt(varE) / sqrt(var_hat_g2 + varE))
     
     #--- Store Result ---#

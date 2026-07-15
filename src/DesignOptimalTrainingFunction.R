@@ -16,7 +16,7 @@
 #' @param rho      Numeric. The ratio of dominance variance to additive variance (varD/varA).
 #'                          Used to calculate varD = rho * varA.
 #' @param gamma    Numeric. A tuning parameter for the EI function (default = 1).
-#' @param z.score  Numeric. The Z-score used for the Upper Confidence Bound (UCB) calculation 
+#' @param kappa    Numeric. The Kappa used for the Upper Confidence Bound (UCB) calculation 
 #'                 (default = 1.96, corresponding to a 95% confidence interval).
 #'                 
 #' @return A list containing three elements:
@@ -34,7 +34,7 @@
 #' @export
 
 OPTtrain <- function(kinshipA, kinshipD = NULL, nsim = 2500, folds = 5, h = 0.5, mu = 100, 
-                     varA = 20, rho, gamma = 1, z.score = 1.96){
+                     varA = 20, rho, gamma = 1, kappa = 1.96){
   
   suppressPackageStartupMessages({
     library(BGLR)
@@ -103,7 +103,7 @@ OPTtrain <- function(kinshipA, kinshipD = NULL, nsim = 2500, folds = 5, h = 0.5,
     
     future.apply::future_lapply(seq_len(nsim), function(i){
       res <- AcqFun(folds = folds, candi = candi, Nc = Nc, kinshipA = kinshipA, kinshipD = kinshipD, 
-                    p_true = p_new[i, ], gamma = gamma, z.score = z.score)
+                    p_true = p_new[i, ], gamma = gamma, kappa = kappa)
       
       p()
       return(res)
